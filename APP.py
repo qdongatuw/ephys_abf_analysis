@@ -8,6 +8,6 @@ uploaded_file = st.file_uploader("Upload a file", type=['abf'], accept_multiple_
 if uploaded_file is not None:
     # Get the file name
     
-    f = pyabf.ABF(uploaded_file.read())
+    f = uploaded_file.read()
     st.write(f)
     
