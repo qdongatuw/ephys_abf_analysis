@@ -7,7 +7,7 @@ uploaded_file = st.file_uploader("Upload a file", type=['abf'], accept_multiple_
 # Check if a file is uploaded
 if uploaded_file is not None:
     # Get the file name
-    file_name = uploaded_file.name
-    f = pyabf.ABF(file_name)
+    
+    f = pyabf.ABF(uploaded_file.read())
     st.write(f)
     
