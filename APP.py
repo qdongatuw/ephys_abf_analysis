@@ -172,7 +172,7 @@ if uploaded_file is not None:
             result['Access resistance (Mom)'] = [np.mean(r_access)]
             result.update(ina)
 
-    st.line_chart(data=data, x='Times (sec)', show_legend=False)
+    st.line_chart(data=data, x='Times (sec)')
     st.dataframe(pd.DataFrame(result).T)
 
     os.remove(file_path)
