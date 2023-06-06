@@ -11,7 +11,7 @@ import qc_features as qc
 
 save_directory = "./uploads"
 
-cl1, cl2 = st.columns([0.7, 0.3, gap='medium'])
+cl1, cl2 = st.columns([0.7, 0.3], gap='medium')
 
 # Create a file upload widget
 uploaded_file = cl1.file_uploader("Upload a file", type=['abf'], accept_multiple_files=False)
