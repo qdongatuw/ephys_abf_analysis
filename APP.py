@@ -8,6 +8,7 @@ import subthresh_features as sbth
 import qc_features as qc
 
 
+st.title("Ephys feature analysis")
 
 save_directory = "./uploads"
 
