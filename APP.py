@@ -11,21 +11,6 @@ import qc_features as qc
 
 save_directory = "./uploads"
 
-def list_files(directory):
-    file_list = []
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            file_path = os.path.join(root, file)
-            file_list.append(file_path)
-    return file_list
-
-# Specify the directory path
-directory_path = save_directory
-
-# Call the function to list all files
-files = list_files(directory_path)
-st.dataframe(files)
-
 # Create a file upload widget
 uploaded_file = st.file_uploader("Upload a file", type=['abf'], accept_multiple_files=False)
 
@@ -172,4 +157,4 @@ if uploaded_file is not None:
     st.pyplot(fig)
     st.dataframe(result)
 
-os.remove(file_path)
+    os.remove(file_path)
