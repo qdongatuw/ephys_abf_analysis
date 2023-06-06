@@ -24,7 +24,7 @@ directory_path = save_directory
 
 # Call the function to list all files
 files = list_files(directory_path)
-print(files)
+st.dataframe(files)
 
 # Create a file upload widget
 uploaded_file = st.file_uploader("Upload a file", type=['abf'], accept_multiple_files=False)
