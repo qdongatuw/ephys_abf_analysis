@@ -1,8 +1,6 @@
 import os
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import rc
 import streamlit as st
 import pyabf
 from feature_extractor import SpikeFeatureExtractor, SpikeTrainFeatureExtractor
@@ -10,30 +8,13 @@ import subthresh_features as sbth
 import qc_features as qc
 
 
-darkmode = 1
-facecolor = ['w', '#555555']
-line_text_color = ['k', 'w']
-
-rc('lines', linewidth=0.5)
-rc('font', family='Arial', weight='bold', size=9)
-rc('axes', linewidth=1, labelsize=5, labelweight='bold', titlesize=10,
-   titleweight='bold', edgecolor=line_text_color[darkmode], labelcolor=line_text_color[darkmode],
-   facecolor=facecolor[darkmode])
-rc('axes.spines', right=False, top=False)
-rc('legend', framealpha=0.5, fontsize=5, frameon=False)
-rc('xtick', top=False, labeltop=False, labelsize=5, color=line_text_color[darkmode])
-rc('ytick', right=False, labelright=False, labelsize=5, color=line_text_color[darkmode])
-rc('text', color=line_text_color[darkmode])
-rc('figure', dpi=300, figsize=(6, 1.5), facecolor=facecolor[darkmode])
-rc('figure.subplot', left=0.1, right=0.9, bottom=0.3, top=0.9, wspace=0.4, hspace=0.2)
-rc('errorbar', capsize=0)
-rc('savefig', transparent=True, dpi=300)
-
 
 save_directory = "./uploads"
 
+cl1, cl2 = st.columns(2)
+
 # Create a file upload widget
-uploaded_file = st.file_uploader("Upload a file", type=['abf'], accept_multiple_files=False)
+uploaded_file = cl1.file_uploader("Upload a file", type=['abf'], accept_multiple_files=False)
 
 # Check if a file is uploaded
 if uploaded_file is not None:
@@ -49,7 +30,7 @@ if uploaded_file is not None:
     # Load the ABF file using pyabf
     f = pyabf.ABF(file_path)
 
-    st.write(f)
+    cl1.write(f)
 
     if f.nOperationMode == 5 and f.sweepCount > 3:   # multi-sweeps
         # folder = out_folder + '\\' + f.abfID
@@ -172,7 +153,7 @@ if uploaded_file is not None:
             result['Access resistance (Mom)'] = [np.mean(r_access)]
             result.update(ina)
 
-    st.line_chart(data=data, x='Times (sec)')
-    st.dataframe(pd.DataFrame(result).T)
+    cl1.line_chart(data=data, x='Times (sec)')
+    cl2.dataframe(pd.DataFrame(result).T)
 
     os.remove(file_path)
