@@ -168,11 +168,11 @@ if uploaded_file is not None:
 
                 data[f'{v_step} mV'] = f.sweepY
 
-            result['Rin (MOm)'] = np.mean(rin_v)
-            result['Access resistance (Mom)'] = np.mean(r_access)
+            result['Rin (MOm)'] = [np.mean(rin_v)]
+            result['Access resistance (Mom)'] = [np.mean(r_access)]
             result.update(ina)
 
-    st.line_chart(data=data, x='Times (sec)')
+    st.line_chart(data=data, x='Times (sec)', show_legend=False)
     st.dataframe(pd.DataFrame(result).T)
 
     os.remove(file_path)
