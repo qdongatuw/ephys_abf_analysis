@@ -176,6 +176,6 @@ if uploaded_file is not None:
             result.update(ina)
 
     st.pyplot(fig)
-    st.dataframe(result)
+    st.table(result)
 
     os.remove(file_path)
