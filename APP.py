@@ -69,12 +69,9 @@ if uploaded_file is not None:
         start = np.asarray(first_epoc.p1s)[step][0]
         end = np.asarray(first_epoc.p2s)[step][0]
 
-        fig, ax = plt.subplots()
+        data = pd.DataFrame({'Times (sec)': f.sweepX})
 
-        ax.set_xlabel(f.sweepLabelX)
-        ax.set_ylabel(f.sweepLabelY)
-
-        if f.sweepUnitsC == 'pA':   # current clamp
+        if f.sweepUnitsC in ['pA', 'nA', 'uA']:   # current clamp
 
             sampling_rate = f.sampleRate
             temp_result_list = []
@@ -98,10 +95,10 @@ if uploaded_file is not None:
                 
                 if f.sweepUnitsY == f.sweepUnitsC:
                     v = v/20
-                
-                ax.plot(t, v)
-                
+                               
                 current = np.asarray(f.sweepEpochs.levels)[step][0]
+
+                data[f'{current} {f.sweepUnitsC}'] = v
 
                 rmp.append(np.median(v[np.where(i == 0)]))
                 if current < 0:
@@ -169,13 +166,13 @@ if uploaded_file is not None:
                 
                 ina[f'{v_step} mV'] = i_peak
 
-                ax.plot(f.sweepX, f.sweepY)
-            
+                data[f'{v_step} mV'] = f.sweepY
+
             result['Rin (MOm)'] = np.mean(rin_v)
             result['Access resistance (Mom)'] = np.mean(r_access)
             result.update(ina)
 
-    st.pyplot(fig)
-    st.table(result)
+    st.line_chart(data=data, x='Times (sec)')
+    st.dataframe(pd.DataFrame(result).T)
 
     os.remove(file_path)
