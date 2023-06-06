@@ -24,8 +24,7 @@ directory_path = save_directory
 
 # Call the function to list all files
 files = list_files(directory_path)
-for file in files:
-    os.remove(file)
+st.dataframe(files)
 
 # Create a file upload widget
 uploaded_file = st.file_uploader("Upload a file", type=['abf'], accept_multiple_files=False)
@@ -172,4 +171,5 @@ if uploaded_file is not None:
 
     st.pyplot(fig)
     st.dataframe(result)
-    
+
+os.remove(file_path)
